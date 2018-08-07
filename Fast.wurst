@@ -86,3 +86,19 @@ public function stunWithEffect(unit victim, real stunDuration, string effectName
 public function addEffectOnUnit(unit victim, real duration, string effectName)
     let sf = AddSpecialEffectTarget(effectName, victim, "chest")
     doAfter(duration, () -> sf.destr())
+
+public function createUnit(player p, int uId, vec2 spawnPos, real facingAngle) returns unit
+    return CreateUnit(p, uId, spawnPos.x, spawnPos.y, facingAngle)
+
+function unitFadeBody(unit u, real fullTime, real time)
+    let interval = 0.025
+
+    doAfter(interval) ->
+        if time < fullTime
+            u.setVertexColor(255, 255, 255, ((time / fullTime) * 100).toInt())
+            unitFadeBody(u, fullTime, time - interval)
+
+public function unitFade(unit u, real time)
+    unitFadeBody(u, time, 0)
+
+    
