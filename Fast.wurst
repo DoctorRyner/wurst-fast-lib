@@ -39,7 +39,7 @@ public function getPosForward(unit u, real offset) returns vec2
     return u.getPos().polarOffset(u.getFacingAngle(), offset)
 
 public function getPosToward(unit u, real offset, real faceAngle) returns vec2
-    return u.getPos().polarOffset(angle(faceAngle * bj_DEGTORAD), offset)
+    return u.getPos().polarOffset(angle(faceAngle * DEGTORAD), offset)
 
 public function moveToward(unit u, real offset, real faceAngle)
     u.setPos(u.getPos().polarOffset(faceAngle.asAngleDegrees(), offset))
@@ -90,15 +90,19 @@ public function addEffectOnUnit(unit victim, real duration, string effectName)
 public function createUnit(player p, int uId, vec2 spawnPos, real facingAngle) returns unit
     return CreateUnit(p, uId, spawnPos.x, spawnPos.y, facingAngle)
 
-function unitFadeBody(unit u, real fullTime, real time)
-    let interval = 0.025
+function unitFadeBody(unit unitToFade, real alpha, bool shouldRemove)
+    doAfter(0.1) ->
+        if alpha > 0
+            unitFadeBody(unitToFade, alpha - 0.1, shouldRemove)
+        else
+            if shouldRemove
+                unitToFade.remove()
 
-    doAfter(interval) ->
-        if time < fullTime
-            u.setVertexColor(255, 255, 255, ((time / fullTime) * 100).toInt())
-            unitFadeBody(u, fullTime, time - interval)
+function unitFade(unit unitToFade)
+    unitFadeBody(unitToFade, 1, false)
 
-public function unitFade(unit u, real time)
-    unitFadeBody(u, time, 0)
+function unitFade(unit unitToFade, bool shouldRemove)
+    unitFadeBody(unitToFade, 1, shouldRemove)
+
 
     
