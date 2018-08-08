@@ -99,7 +99,7 @@ function unitFadeBody(unit unitToFade, real alpha, bool shouldRemove)
                 unitToFade.remove()
 
 function unitFade(unit unitToFade)
-    unitFadeBody(unitToFade, 1, false)
+    unitFadeBody(unitToFade, 1, true)
 
 function unitFade(unit unitToFade, bool shouldRemove)
     unitFadeBody(unitToFade, 1, shouldRemove)
