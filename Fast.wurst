@@ -1,35 +1,35 @@
 package Fast
 
-// import ClosureTimers
+import ClosureTimers
 
-// // Angles
-// public function angleBetween(unit a, unit b) returns real
-//     return bj_RADTODEG * Atan2(b.getY() - a.getY(), b.getX() - a.getX())
+// Angles
+public function angleBetween(unit a, unit b) returns real
+    return bj_RADTODEG * Atan2(b.getY() - a.getY(), b.getX() - a.getX())
 
-// public function angleBetween(vec2 a, vec2 b) returns real
-//     return bj_RADTODEG * Atan2(b.y - a.y, b.x - a.x)
+public function angleBetween(vec2 a, vec2 b) returns real
+    return bj_RADTODEG * Atan2(b.y - a.y, b.x - a.x)
 
 public function angleBetween(unit a, vec2 b) returns real
     return bj_RADTODEG * Atan2(b.y - a.getY(), b.x - a.getX())
 
-// public function angleBetween(vec2 a, unit b) returns real
-//     return bj_RADTODEG * Atan2(b.getY() - a.y, b.getX() - a.x)
+public function angleBetween(vec2 a, unit b) returns real
+    return bj_RADTODEG * Atan2(b.getY() - a.y, b.getX() - a.x)
 
-// // Distance
-// public function distanceBetween(unit a, unit b) returns real
-//     return SquareRoot(
-//           ((b.getX() - a.getX()) * (b.getX() - a.getX()))
-//         + ((b.getY() - a.getY()) * (b.getY() - a.getY()))
-//     )
+// Distance
+public function distanceBetween(unit a, unit b) returns real
+    return SquareRoot(
+          ((b.getX() - a.getX()) * (b.getX() - a.getX()))
+        + ((b.getY() - a.getY()) * (b.getY() - a.getY()))
+    )
 
-// public function distanceBetween(vec2 a, vec2 b) returns real
-//     return SquareRoot(((b.x - a.x) * (b.x - a.x)) + ((b.y - a.y) * (b.y - a.y)))
+public function distanceBetween(vec2 a, vec2 b) returns real
+    return SquareRoot(((b.x - a.x) * (b.x - a.x)) + ((b.y - a.y) * (b.y - a.y)))
 
-// public function distanceBetween(unit a, vec2 b) returns real
-//     return SquareRoot(((b.x - a.getX()) * (b.x - a.getX())) + ((b.y - a.getY()) * (b.y - a.getY())))
+public function distanceBetween(unit a, vec2 b) returns real
+    return SquareRoot(((b.x - a.getX()) * (b.x - a.getX())) + ((b.y - a.getY()) * (b.y - a.getY())))
 
-// public function distanceBetween(vec2 a, unit b) returns real
-//     return SquareRoot(((b.getX() - a.x) * (b.getX() - a.x)) + ((b.getY() - a.y) * (b.getY() - a.y)))
+public function distanceBetween(vec2 a, unit b) returns real
+    return SquareRoot(((b.getX() - a.x) * (b.getX() - a.x)) + ((b.getY() - a.y) * (b.getY() - a.y)))
 
 // // Moving
 public function moveForward(unit u, real offset)
@@ -38,66 +38,66 @@ public function moveForward(unit u, real offset)
 public function getPosForward(unit u, real offset) returns vec2
     return u.getPos().polarOffset(u.getFacingAngle(), offset)
 
-// public function getPosToward(unit u, real offset, real faceAngle) returns vec2
-//     return u.getPos().polarOffset(angle(faceAngle * DEGTORAD), offset)
+public function getPosToward(unit u, real offset, real faceAngle) returns vec2
+    return u.getPos().polarOffset(angle(faceAngle * DEGTORAD), offset)
 
-// public function moveToward(unit u, real offset, real faceAngle)
-//     u.setPos(u.getPos().polarOffset(faceAngle.asAngleDegrees(), offset))
+public function moveToward(unit u, real offset, real faceAngle)
+    u.setPos(u.getPos().polarOffset(faceAngle.asAngleDegrees(), offset))
 
-// // Rooting
+// Rooting
 
-// public function root(unit victim, real time)
-//     let rootPos = victim.getPos()
+public function root(unit victim, real time)
+    let rootPos = victim.getPos()
 
-//     doPeriodicallyTimed(0.01, time) cb ->
-//         victim.setPos(rootPos)
+    doPeriodicallyTimed(0.01, time) cb ->
+        victim.setPos(rootPos)
 
-// public function rootWithEffect(unit victim, real stunDuration, string effectName)
-//     let stunEffect = AddSpecialEffectTarget(effectName, victim, "chest")
-//     let rootPos = victim.getPos()
+public function rootWithEffect(unit victim, real stunDuration, string effectName)
+    let stunEffect = AddSpecialEffectTarget(effectName, victim, "chest")
+    let rootPos = victim.getPos()
 
-//     doPeriodicallyTimed(0.01, stunDuration) cb ->
-//         victim.setPos(rootPos)
-//         if cb.isLast()
-//             stunEffect.destr()
+    doPeriodicallyTimed(0.01, stunDuration) cb ->
+        victim.setPos(rootPos)
+        if cb.isLast()
+            stunEffect.destr()
 
-// // Stunning
-// public function stun(unit victim, real time)
-//     doPeriodicallyTimed(0.01, time) cb ->
-//         victim.issueImmediateOrder("stop")
+// Stunning
+public function stun(unit victim, real time)
+    doPeriodicallyTimed(0.01, time) cb ->
+        victim.issueImmediateOrder("stop")
 
-// public function stunWithEffect(unit victim, real stunDuration, string effectName)
-//     let stunEffect = AddSpecialEffectTarget(effectName, victim, "chest")
+public function stunWithEffect(unit victim, real stunDuration, string effectName)
+    let stunEffect = AddSpecialEffectTarget(effectName, victim, "chest")
 
-//     doPeriodicallyTimed(0.01, stunDuration) cb ->
-//         victim.issueImmediateOrder("stop")
-//         if cb.isLast()
-//             stunEffect.destr()
+    doPeriodicallyTimed(0.01, stunDuration) cb ->
+        victim.issueImmediateOrder("stop")
+        if cb.isLast()
+            stunEffect.destr()
 
-// public function stunWithEffect(unit victim, real stunDuration, string effectName, string ref)
-//     let stunEffect = AddSpecialEffectTarget(effectName, victim, ref)
+public function stunWithEffect(unit victim, real stunDuration, string effectName, string ref)
+    let stunEffect = AddSpecialEffectTarget(effectName, victim, ref)
 
-//     doPeriodicallyTimed(0.01, stunDuration) cb ->
-//         victim.issueImmediateOrder("stop")
-//         if cb.isLast()
-//             stunEffect.destr()
+    doPeriodicallyTimed(0.01, stunDuration) cb ->
+        victim.issueImmediateOrder("stop")
+        if cb.isLast()
+            stunEffect.destr()
 
 public function createUnit(player p, int uId, vec2 spawnPos, real facingAngle) returns unit
     return CreateUnit(p, uId, spawnPos.x, spawnPos.y, facingAngle)
 
-// function unitFadeBody(unit unitToFade, real alpha, bool shouldRemove)
-//     doAfter(0.1) ->
-//         if alpha > 0
-//             unitFadeBody(unitToFade, alpha - 0.1, shouldRemove)
-//         else
-//             if shouldRemove
-//                 unitToFade.remove()
+function unitFadeBody(unit unitToFade, real alpha, bool shouldRemove)
+    doAfter(0.1) ->
+        if alpha > 0
+            unitFadeBody(unitToFade, alpha - 0.1, shouldRemove)
+        else
+            if shouldRemove
+                unitToFade.remove()
 
-// function unitFade(unit unitToFade)
-//     unitFadeBody(unitToFade, 1, true)
+function unitFade(unit unitToFade)
+    unitFadeBody(unitToFade, 1, true)
 
-// function unitFade(unit unitToFade, bool shouldRemove)
-//     unitFadeBody(unitToFade, 1, shouldRemove)
+function unitFade(unit unitToFade, bool shouldRemove)
+    unitFadeBody(unitToFade, 1, shouldRemove)
 
 public function getSpellTargetPos() returns vec2
     return vec2(GetSpellTargetX(), GetSpellTargetY())
