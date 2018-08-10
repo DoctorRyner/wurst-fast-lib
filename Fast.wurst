@@ -1,6 +1,7 @@
 package Fast
 
 import ClosureTimers
+import Simulate3dSound
 
 // Angles
 public function angleBetween(unit a, unit b) returns real
@@ -102,3 +103,8 @@ function unitFade(unit unitToFade, bool shouldRemove)
 public function getSpellTargetPos() returns vec2
     return vec2(GetSpellTargetX(), GetSpellTargetY())
     
+public function playSound(sound snd, unit unitToAttachSound)
+    bindSoundToUnit(snd, unitToAttachSound, 0, 8000, 2500)
+
+public function playSound(sound snd, vec2 playPos)
+    bindSoundToPoint(snd, playPos.x, playPos.y, 0, 8000, 2500)
