@@ -5,16 +5,16 @@ import Simulate3dSound
 
 // Angles
 public function angleBetween(unit a, unit b) returns real
-    return bj_RADTODEG * Atan2(b.getY() - a.getY(), b.getX() - a.getX())
+    return RADTODEG * Atan2(b.getY() - a.getY(), b.getX() - a.getX())
 
 public function angleBetween(vec2 a, vec2 b) returns real
-    return bj_RADTODEG * Atan2(b.y - a.y, b.x - a.x)
+    return RADTODEG * Atan2(b.y - a.y, b.x - a.x)
 
 public function angleBetween(unit a, vec2 b) returns real
-    return bj_RADTODEG * Atan2(b.y - a.getY(), b.x - a.getX())
+    return RADTODEG * Atan2(b.y - a.getY(), b.x - a.getX())
 
 public function angleBetween(vec2 a, unit b) returns real
-    return bj_RADTODEG * Atan2(b.getY() - a.y, b.getX() - a.x)
+    return RADTODEG * Atan2(b.getY() - a.y, b.getX() - a.x)
 
 // Distance
 public function distanceBetween(unit a, unit b) returns real
@@ -51,6 +51,10 @@ public function root(unit victim, real time)
     let rootPos = victim.getPos()
 
     doPeriodicallyTimed(0.01, time) cb ->
+        if victim.isAlive()    
+            victim.issueImmediateOrder("stop")
+        else
+            cb.stop()
         victim.setPos(rootPos)
 
 public function rootWithEffect(unit victim, real stunDuration, string effectName)
@@ -58,6 +62,11 @@ public function rootWithEffect(unit victim, real stunDuration, string effectName
     let rootPos = victim.getPos()
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
+        if victim.isAlive()    
+            victim.issueImmediateOrder("stop")
+        else
+            cb.stop()
+
         victim.setPos(rootPos)
         if cb.isLast()
             stunEffect.destr()
@@ -65,13 +74,19 @@ public function rootWithEffect(unit victim, real stunDuration, string effectName
 // Stunning
 public function stun(unit victim, real time)
     doPeriodicallyTimed(0.01, time) cb ->
-        victim.issueImmediateOrder("stop")
+        if victim.isAlive()    
+            victim.issueImmediateOrder("stop")
+        else
+            cb.stop()
 
 public function stunWithEffect(unit victim, real stunDuration, string effectName)
     let stunEffect = victim.addEffect(effectName, "chest")
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
-        victim.issueImmediateOrder("stop")
+        if victim.isAlive()    
+            victim.issueImmediateOrder("stop")
+        else
+            cb.stop()
         if cb.isLast()
             stunEffect.destr()
 
@@ -79,7 +94,10 @@ public function stunWithEffect(unit victim, real stunDuration, string effectName
     let stunEffect = AddSpecialEffectTarget(effectName, victim, ref)
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
-        victim.issueImmediateOrder("stop")
+        if victim.isAlive()    
+            victim.issueImmediateOrder("stop")
+        else
+            cb.stop()
         if cb.isLast()
             stunEffect.destr()
 
