@@ -68,7 +68,7 @@ public function stun(unit victim, real time)
         victim.issueImmediateOrder("stop")
 
 public function stunWithEffect(unit victim, real stunDuration, string effectName)
-    let stunEffect = AddSpecialEffectTarget(effectName, victim, "chest")
+    let stunEffect = victim.addEffect(effectName, "chest")
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
         victim.issueImmediateOrder("stop")
