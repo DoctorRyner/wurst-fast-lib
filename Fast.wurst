@@ -120,13 +120,13 @@ function unitFade(unit unitToFade, bool shouldRemove)
 public function getSpellTargetPos() returns vec2
     return vec2(GetSpellTargetX(), GetSpellTargetY())
 
-function getNearesEnemy(vec2 selectPos, player casterOwner, real range) returns unit
+public function getNearesEnemy(vec2 selectPos, player casterOwner, real range) returns unit
     let selectedUnits = CreateGroup()
     GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
     if selectedUnits.size() > 1
 
         unit nearestUnit = null
-        real currentMinDistance = detectRange + 1
+        real currentMinDistance = range + 1
 
         for u from selectedUnits
             let dist = distanceBetween(selectPos, u.getPos())
@@ -143,13 +143,13 @@ function getNearesEnemy(vec2 selectPos, player casterOwner, real range) returns 
         selectedUnits.destr()
         return null
 
-function getNearesAlly(vec2 selectPos, player casterOwner, real range) returns unit
+public function getNearesAlly(vec2 selectPos, player casterOwner, real range) returns unit
     let selectedUnits = CreateGroup()
     GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
     if selectedUnits.size() > 1
 
         unit nearestUnit = null
-        real currentMinDistance = detectRange + 1
+        real currentMinDistance = range + 1
 
         for u from selectedUnits
             let dist = distanceBetween(selectPos, u.getPos())
@@ -166,13 +166,13 @@ function getNearesAlly(vec2 selectPos, player casterOwner, real range) returns u
         selectedUnits.destr()
         return null
 
-function getNearesAny(vec2 selectPos, real range) returns unit
+public function getNearesAny(vec2 selectPos, real range) returns unit
     let selectedUnits = CreateGroup()
     GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
     if selectedUnits.size() > 1
 
         unit nearestUnit = null
-        real currentMinDistance = detectRange + 1
+        real currentMinDistance = range + 1
 
         for u from selectedUnits
             let dist = distanceBetween(selectPos, u.getPos())
