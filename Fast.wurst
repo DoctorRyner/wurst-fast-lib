@@ -120,7 +120,7 @@ function unitFade(unit unitToFade, bool shouldRemove)
 public function getSpellTargetPos() returns vec2
     return vec2(GetSpellTargetX(), GetSpellTargetY())
 
-public function getNearesEnemy(vec2 selectPos, player casterOwner, real range) returns unit
+public function getNearestEnemy(vec2 selectPos, player casterOwner, real range) returns unit
     let selectedUnits = CreateGroup()
     GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
     if selectedUnits.size() > 1
@@ -143,7 +143,7 @@ public function getNearesEnemy(vec2 selectPos, player casterOwner, real range) r
         selectedUnits.destr()
         return null
 
-public function getNearesAlly(vec2 selectPos, player casterOwner, real range) returns unit
+public function getNearestAlly(vec2 selectPos, player casterOwner, real range) returns unit
     let selectedUnits = CreateGroup()
     GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
     if selectedUnits.size() > 1
@@ -166,7 +166,7 @@ public function getNearesAlly(vec2 selectPos, player casterOwner, real range) re
         selectedUnits.destr()
         return null
 
-public function getNearesAny(vec2 selectPos, real range) returns unit
+public function getNearestAny(vec2 selectPos, real range) returns unit
     let selectedUnits = CreateGroup()
     GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
     if selectedUnits.size() > 1
