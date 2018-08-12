@@ -187,3 +187,6 @@ public function getNearestAny(vec2 selectPos, real range) returns unit
     else
         selectedUnits.destr()
         return null
+
+function getRectPos(rect area) returns vec2
+    return vec2(GetRectCenterX(area), GetRectCenterY(area))
