@@ -122,73 +122,47 @@ function unitFade(unit unitToFade, bool shouldRemove)
 public function getSpellTargetPos() returns vec2
     return vec2(GetSpellTargetX(), GetSpellTargetY())
 
-public function getNearestEnemy(vec2 selectPos, player casterOwner, real range) returns unit
-    let selectedUnits = CreateGroup()
-    GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
-    if selectedUnits.size() > 1
-
-        unit nearestUnit = null
-        real currentMinDistance = range + 1
-
-        for u from selectedUnits
-            let dist = distanceBetween(selectPos, u.getPos())
-
-            if u.isAlive()
-            and IsUnitEnemy(u, casterOwner)
-            and dist < currentMinDistance
-                nearestUnit = u
-                currentMinDistance = dist
-        
-        selectedUnits.destr()
-        return nearestUnit
-    else
-        selectedUnits.destr()
-        return null
-
 public function getNearestAlly(vec2 selectPos, player casterOwner, real range) returns unit
-    let selectedUnits = CreateGroup()
-    GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
-    if selectedUnits.size() > 1
+    let nearestUnitsGroup = CreateGroup()..enumUnitsInRange(selectPos, range)
+    for u in nearestUnitsGroup
+        if not u.isAlive() and IsUnitEnemy(u, casterOwner)
+            nearestUnitsGroup.removeUnit(u)
 
-        unit nearestUnit = null
-        real currentMinDistance = range + 1
+    unit nearestUnit = FirstOfGroup(nearestUnitsGroup)
 
-        for u from selectedUnits
-            let dist = distanceBetween(selectPos, u.getPos())
+    for u in nearestUnitsGroup
+        if distanceBetween(selectPos, u) < distanceBetween(selectPos, nearestUnit)
+            nearestUnit = u
 
-            if u.isAlive()
-            and IsUnitAlly(u, casterOwner)
-            and dist < currentMinDistance
-                nearestUnit = u
-                currentMinDistance = dist
-        
-        selectedUnits.destr()
-        return nearestUnit
-    else
-        selectedUnits.destr()
-        return null
+    return nearestUnit
 
-public function getNearestAny(vec2 selectPos, real range) returns unit
-    let selectedUnits = CreateGroup()
-    GroupEnumUnitsInRange(selectedUnits, selectPos.x, selectPos.y, range, null)
-    if selectedUnits.size() > 1
+public function getNearestEnemy(vec2 selectPos, player casterOwner, real range) returns unit
+    let nearestUnitsGroup = CreateGroup()..enumUnitsInRange(selectPos, range)
+    for u in nearestUnitsGroup
+        if not u.isAlive() and IsUnitAlly(u, casterOwner)
+            nearestUnitsGroup.removeUnit(u)
 
-        unit nearestUnit = null
-        real currentMinDistance = range + 1
+    unit nearestUnit = FirstOfGroup(nearestUnitsGroup)
 
-        for u from selectedUnits
-            let dist = distanceBetween(selectPos, u.getPos())
+    for u in nearestUnitsGroup
+        if distanceBetween(selectPos, u) < distanceBetween(selectPos, nearestUnit)
+            nearestUnit = u
 
-            if u.isAlive()
-            and dist < currentMinDistance
-                nearestUnit = u
-                currentMinDistance = dist
-        
-        selectedUnits.destr()
-        return nearestUnit
-    else
-        selectedUnits.destr()
-        return null
+    return nearestUnit
+
+public function getNearestUnit(vec2 selectPos, player casterOwner, real range) returns unit
+    let nearestUnitsGroup = CreateGroup()..enumUnitsInRange(selectPos, range)
+    for u in nearestUnitsGroup
+        if not u.isAlive()
+            nearestUnitsGroup.removeUnit(u)
+
+    unit nearestUnit = FirstOfGroup(nearestUnitsGroup)
+
+    for u in nearestUnitsGroup
+        if distanceBetween(selectPos, u) < distanceBetween(selectPos, nearestUnit)
+            nearestUnit = u
+
+    return nearestUnit
 
 public function getRectPos(rect area) returns vec2
     return vec2(GetRectCenterX(area), GetRectCenterY(area))
