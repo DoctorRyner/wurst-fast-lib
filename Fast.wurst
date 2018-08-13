@@ -2,6 +2,8 @@ package Fast
 
 import ClosureTimers
 
+public let STUN = 851973
+
 // Angles
 public function angleBetween(unit a, unit b) returns real
     return RADTODEG * Atan2(b.getY() - a.getY(), b.getX() - a.getX())
@@ -188,5 +190,5 @@ public function getNearestAny(vec2 selectPos, real range) returns unit
         selectedUnits.destr()
         return null
 
-function getRectPos(rect area) returns vec2
+public function getRectPos(rect area) returns vec2
     return vec2(GetRectCenterX(area), GetRectCenterY(area))
