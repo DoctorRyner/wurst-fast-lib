@@ -125,7 +125,7 @@ public function getSpellTargetPos() returns vec2
 public function getNearestAlly(vec2 selectPos, player casterOwner, real range) returns unit
     let nearestUnitsGroup = CreateGroup()..enumUnitsInRange(selectPos, range)
     for u in nearestUnitsGroup
-        if not u.isAlive() and IsUnitEnemy(u, casterOwner)
+        if not u.isAlive() or IsUnitEnemy(u, casterOwner)
             nearestUnitsGroup.removeUnit(u)
 
     unit nearestUnit = FirstOfGroup(nearestUnitsGroup)
@@ -139,7 +139,7 @@ public function getNearestAlly(vec2 selectPos, player casterOwner, real range) r
 public function getNearestEnemy(vec2 selectPos, player casterOwner, real range) returns unit
     let nearestUnitsGroup = CreateGroup()..enumUnitsInRange(selectPos, range)
     for u in nearestUnitsGroup
-        if not u.isAlive() and IsUnitAlly(u, casterOwner)
+        if not u.isAlive() or IsUnitAlly(u, casterOwner)
             nearestUnitsGroup.removeUnit(u)
 
     unit nearestUnit = FirstOfGroup(nearestUnitsGroup)
