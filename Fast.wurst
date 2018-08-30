@@ -53,7 +53,7 @@ public function root(unit victim, real time)
 
     doPeriodicallyTimed(0.01, time) cb ->
         if victim.isAlive()    
-            victim.issueImmediateOrder("stop")
+            victim.issueImmediateOrder(STUN)
         else
             cb.stop()
         victim.setPos(rootPos)
@@ -64,7 +64,7 @@ public function rootWithEffect(unit victim, real stunDuration, string effectName
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
         if victim.isAlive()    
-            victim.issueImmediateOrder("stop")
+            victim.issueImmediateOrder(STUN)
         else
             cb.stop()
 
@@ -76,7 +76,7 @@ public function rootWithEffect(unit victim, real stunDuration, string effectName
 public function stun(unit victim, real time)
     doPeriodicallyTimed(0.01, time) cb ->
         if victim.isAlive()    
-            victim.issueImmediateOrder("stop")
+            victim.issueImmediateOrder(STUN)
         else
             cb.stop()
 
@@ -85,7 +85,7 @@ public function stunWithEffect(unit victim, real stunDuration, string effectName
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
         if victim.isAlive()    
-            victim.issueImmediateOrder("stop")
+            victim.issueImmediateOrder(STUN)
         else
             cb.stop()
         if cb.isLast()
@@ -96,7 +96,7 @@ public function stunWithEffect(unit victim, real stunDuration, string effectName
 
     doPeriodicallyTimed(0.01, stunDuration) cb ->
         if victim.isAlive()    
-            victim.issueImmediateOrder("stop")
+            victim.issueImmediateOrder(STUN)
         else
             cb.stop()
         if cb.isLast()
