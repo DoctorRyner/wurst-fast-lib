@@ -119,9 +119,6 @@ function unitFade(unit unitToFade)
 function unitFade(unit unitToFade, bool shouldRemove)
     unitFadeBody(unitToFade, 1, shouldRemove)
 
-public function getSpellTargetPos() returns vec2
-    return vec2(GetSpellTargetX(), GetSpellTargetY())
-
 public function getNearestAlly(vec2 selectPos, player casterOwner, real range) returns unit
     let nearestUnitsGroup = CreateGroup()..enumUnitsInRange(selectPos, range)
     for u in nearestUnitsGroup
